@@ -27,12 +27,7 @@
   </div>
 
   <div id="links">
-    <a href="img/001Bulbasaur.png" title="Bulbasaur" data-gallery>
-        <img src="thm/001Bulbasaur.png" alt="Bulbasaur">
-    </a>
-    <a href="img/001Bulbasaur.png" title="Bulbasaur" data-gallery>
-        <img src="thm/001Bulbasaur.png" alt="Bulbasaur">
-    </a>
+
   </div>
   <script>
   $.getJSON('pokename.json') // json読み込み開始
@@ -46,7 +41,7 @@
           'data-gallery': ""
         });
         var img = $('<img>').attr({
-          'href': "thm/" + val.id + val.ename + ".png",
+          'src': "thm/" + val.id + val.ename + ".png",
           'title': val.jname
         });
         aLink.prop('data-gallery', true);
