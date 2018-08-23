@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+
+  <title>Pokemon-DB</title>
+  <meta name="description" content="Pokemon-DB">
+  <meta name="author" content="kobarasukimaro">
+
+  <link rel="stylesheet" href="css/blueimp-gallery.min.css">
+
+</head>
+
+<body>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="js/jquery.blueimp-gallery.min.js"></script>
+  <script src="js/blueimp-gallery.min.js"></script>
+
+  <div id="blueimp-gallery" class="blueimp-gallery blueimp-gallery-controls">
+      <div class="slides"></div>
+      <h3 class="title"></h3>
+      <a class="prev">‹</a>
+      <a class="next">›</a>
+      <a class="close">×</a>
+      <a class="play-pause"></a>
+      <ol class="indicator"></ol>
+  </div>
+
+  <div id="links">
+    <a href="img/001Bulbasaur.png" title="Bulbasaur" data-gallery>
+        <img src="thm/001Bulbasaur.png" alt="Bulbasaur">
+    </a>
+    <a href="img/001Bulbasaur.png" title="Bulbasaur" data-gallery>
+        <img src="thm/001Bulbasaur.png" alt="Bulbasaur">
+    </a>
+  </div>
+  <script>
+  $.getJSON('pokename.json') // json読み込み開始
+    .done(function(json){ // jsonの読み込みに成功した時
+      console.log('成功');
+
+      $.each(json, function(key, val) {
+        var aLink = $('<a/>').attr({
+          'href': "img/" + val.id + val.ename + ".png",
+          'title': val.jname,
+          'data-gallery': ""
+        });
+        var img = $('<img>').attr({
+          'href': "thm/" + val.id + val.ename + ".png",
+          'title': val.jname
+        });
+        aLink.prop('data-gallery', true);
+        aLink.append(img);
+        $('#links').append(aLink);
+      });
+    })
+    .fail(function(){ // jsonの読み込みに失敗した時
+      console.log('失敗');
+    })
+    .always(function(){ // 成功/失敗に関わらず実行
+      console.log('必ず実行される');
+    });
+    document.getElementById('links').onclick = function (event) {
+        event = event || window.event;
+        var target = event.target || event.srcElement,
+            link = target.src ? target.parentNode : target,
+            options = {index: link, event: event},
+            links = this.getElementsByTagName('a');
+        blueimp.Gallery(links, options);
+    };
+  </script>
+</body>
+</html>
